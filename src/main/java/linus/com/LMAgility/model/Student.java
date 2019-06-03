@@ -26,11 +26,7 @@ public class Student extends AuditModel{
     private String email;
     private boolean wantEmail = true;
 
-    @ManyToOne(fetch = FetchType.LAZY
-            //,optional = false
-    )
-    @JoinColumn(name = "activity_id", nullable = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+
     private Activity activity;
 
 

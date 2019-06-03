@@ -24,7 +24,6 @@ import java.util.Properties;
 
 public class MailSender{
 
-    
     public void sendActivityMail(Activity activity, List<Student> students) {
         Session session = getSession();
         String activityInfo = activity.emailFormatter();
@@ -53,18 +52,23 @@ public class MailSender{
         }
     }
     public void sendConfirmationEmail(Student student){
-        Session session = getSession();
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(student.getEmail()));
-            message.setSubject("Bekräftelse mail på LM-Hundsport");
-            message.setText("Tack för din registrering " +student.getForName() +" " +student.getSurName());
-            Transport.send(message);
-            System.out.println("Email sent to : " +student.getEmail());
+        if (student.isWantEmail()) {
+            Session session = getSession();
+            try {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(username));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(student.getEmail()));
+                message.setSubject("Bekräftelse mail på LM-Hundsport");
+                message.setText("Tack för din registrering " + student.getForName() + " " + student.getSurName());
+                Transport.send(message);
+                System.out.println("Email sent to : " + student.getEmail());
 
-        } catch (MessagingException e) {
-            e.printStackTrace();
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println(student.getForName() + " don´t wan't emails");
         }
     }
     public Properties getProps(){

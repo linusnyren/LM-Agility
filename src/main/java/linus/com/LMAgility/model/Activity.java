@@ -26,9 +26,7 @@ public class Activity extends AuditModel{
     private Timestamp activityStart, activityEnd;
 
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List <Student> studentlist;
 
     public Activity(){};

@@ -67,4 +67,11 @@ public class StudentController {
         studentRepo.save(studentfromdb);
         return new ResponseEntity<Student>(studentfromdb, HttpStatus.OK);
     }
+    @PostMapping("/AddMultipleStudents")
+    public ResponseEntity<List<Student>> addMultipleStudents(@RequestBody List<Student> studentsToAdd) {
+        for (int i = 0; i < studentsToAdd.size(); i++) {
+            studentRepo.save(studentsToAdd.get(i));
+        }
+        return new ResponseEntity<List<Student>>(studentsToAdd, HttpStatus.CREATED);
+    }
 }
