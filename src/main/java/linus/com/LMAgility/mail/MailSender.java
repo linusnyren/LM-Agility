@@ -24,8 +24,7 @@ import java.util.Properties;
 
 public class MailSender{
 
-    final String username = "linusny@gmail.com";
-    final String password = "Susannaochlinus123";
+
 
     public void sendActivityMail(Activity activity, List<Student> students) {
         Session session = getSession();
