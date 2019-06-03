@@ -1,5 +1,6 @@
 package linus.com.LMAgility.controller;
 
+import linus.com.LMAgility.mail.MailSender;
 import linus.com.LMAgility.model.Activity;
 import linus.com.LMAgility.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class StudentController {
         }
         if (!exist){
            studentRepo.save(student);
+            MailSender mailSender = new MailSender();
+            mailSender.sendConfirmationEmail(student);
         }
         return new ResponseEntity<Student>(student, HttpStatus.CREATED);
 

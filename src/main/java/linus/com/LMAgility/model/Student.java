@@ -19,7 +19,12 @@ public class Student extends AuditModel{
             initialValue = 1
     )
     private Long id;
-    private String surName, forName, phone, dogName;
+    private String surName;
+    private String forName;
+    private String phone;
+    private String dogName;
+    private String email;
+    private boolean wantEmail = true;
 
     @ManyToOne(fetch = FetchType.LAZY
             //,optional = false
@@ -30,14 +35,29 @@ public class Student extends AuditModel{
 
 
     public Student(){};
-    public Student(String surName, String forName, String phone, String dogName) {
+    public Student(String surName, String forName, String phone, String dogName, String email, boolean wantEmail) {
         this.surName = surName;
         this.forName = forName;
         this.phone = phone;
         this.dogName = dogName;
+        this.email = email;
+        this.wantEmail = wantEmail;
 
     }
+    public boolean isWantEmail() {
+        return wantEmail;
+    }
 
+    public void setWantEmail(boolean wantEmail) {
+        this.wantEmail = wantEmail;
+    }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public Long getId() {
         return id;
     }

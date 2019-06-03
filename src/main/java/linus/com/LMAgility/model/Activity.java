@@ -44,6 +44,22 @@ public class Activity extends AuditModel{
 
 
     }
+    public String emailFormatter(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Plats : " +location+"\n");
+        sb.append("Start : " +formatDate(activityStart) +"\n Slut: " +formatDate(activityEnd) +"\n");
+        sb.append("Träningstyp : " +type +"\n");
+        sb.append("Nivå : " +level +"\n");
+        sb.append("Pris : " +price);
+        return sb.toString();
+    }
+    public String formatDate(Timestamp timestamp){
+        return timestamp.toLocalDateTime().getYear() +"-"
+                +timestamp.toLocalDateTime().getMonthValue() +"-"
+                +timestamp.toLocalDateTime().getDayOfMonth() +" "
+                +timestamp.toLocalDateTime().getHour() +":"
+                +timestamp.toLocalDateTime().getMinute();
+    }
 
     public List<Student> getStudentlist() {
         return studentlist;

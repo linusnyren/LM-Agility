@@ -1,5 +1,6 @@
 package linus.com.LMAgility.controller;
 
+import linus.com.LMAgility.mail.MailSender;
 import linus.com.LMAgility.model.Activity;
 import linus.com.LMAgility.model.Student;
 import linus.com.LMAgility.repository.ActivityRepository;
@@ -7,6 +8,8 @@ import linus.com.LMAgility.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -26,7 +29,7 @@ public class ActivityController {
     public ResponseEntity<List<Activity>> getActivities(){
         if(activityRepo.findAll().size() == 0) {
             List<Student> fakeList = new ArrayList<>();
-            Student fakeStudent = new Student("Nyrén", "Linus", "0704174616", "Emma");
+            Student fakeStudent = new Student("Nyrén", "Linus", "0704174616", "Emma", "linusny@hotmail.com", true);
             fakeList.add(fakeStudent);
             Activity test = new Activity("Agility", "nybörjare", "greggereds kapell", 500, new Timestamp(Calendar.getInstance().getTimeInMillis()), new Timestamp(Calendar.getInstance().getTimeInMillis()), fakeList);
 
@@ -46,6 +49,8 @@ public class ActivityController {
     @PostMapping("/activity")
     public ResponseEntity<Activity> addActivity(@RequestBody Activity activity){
         activityRepo.save(activity);
+        MailSender mailSender = new MailSender();
+        mailSender.sendActivityMail(activity, studentRepo.findAll());
         return new ResponseEntity<Activity>(activity, HttpStatus.CREATED);
     }
     @PostMapping("/studentToActivity")
