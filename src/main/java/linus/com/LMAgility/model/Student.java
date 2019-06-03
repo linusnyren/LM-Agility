@@ -1,11 +1,6 @@
 package linus.com.LMAgility.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
-
-import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -26,16 +21,17 @@ public class Student extends AuditModel{
     private String email;
     private boolean wantEmail = true;
 
-
     private Activity activity;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Dog> dogList;
 
     public Student(){};
-    public Student(String surName, String forName, String phone, String dogName, String email, boolean wantEmail) {
+    public Student(String surName, String forName, String phone, List<Dog> dogList, String email, boolean wantEmail) {
         this.surName = surName;
         this.forName = forName;
         this.phone = phone;
-        this.dogName = dogName;
+        this.dogList = dogList;
         this.email = email;
         this.wantEmail = wantEmail;
 
@@ -82,17 +78,15 @@ public class Student extends AuditModel{
         this.phone = phone;
     }
 
-    public String getDogName() {
-        return dogName;
+    public List<Dog> getDogList() {
+        return dogList;
     }
 
-    public void setDogName(String dogName) {
-        this.dogName = dogName;
+    public void setDogList(List<Dog> dogList) {
+        this.dogList = dogList;
     }
 
-
-
-
-
-
+    public void addDog(Dog dog) {
+        dogList.add(dog);
+    }
 }

@@ -2,6 +2,7 @@ package linus.com.LMAgility.controller;
 
 import linus.com.LMAgility.mail.MailSender;
 import linus.com.LMAgility.model.Activity;
+import linus.com.LMAgility.model.Dog;
 import linus.com.LMAgility.model.Student;
 import linus.com.LMAgility.repository.ActivityRepository;
 import linus.com.LMAgility.repository.StudentRepository;
@@ -29,13 +30,15 @@ public class ActivityController {
     public ResponseEntity<List<Activity>> getActivities(){
         if(activityRepo.findAll().size() == 0) {
             List<Student> fakeList = new ArrayList<>();
-            Student fakeStudent = new Student("Nyrén", "Linus", "0704174616", "Emma", "linusny@hotmail.com", true);
+            List<Dog> dogList = new ArrayList<>();
+            dogList.add(new Dog("Emma"));
+            dogList.add(new Dog("Fluffen"));
+            Student fakeStudent = new Student("Nyrén", "Linus", "0704174616", dogList, "linusny@hotmail.com", true);
             fakeList.add(fakeStudent);
             Activity test = new Activity("Agility", "nybörjare", "greggereds kapell", 500, new Timestamp(Calendar.getInstance().getTimeInMillis()), new Timestamp(Calendar.getInstance().getTimeInMillis()), fakeList);
 
             List<Activity> activityList = new ArrayList<>();
             activityList.add(test);
-            System.out.println(activityList.get(0).getStudentlist().get(0).getDogName());
             return new ResponseEntity<List<Activity>>(activityList, HttpStatus.OK);
 
         }

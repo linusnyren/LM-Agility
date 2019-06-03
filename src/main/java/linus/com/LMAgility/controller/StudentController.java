@@ -2,7 +2,9 @@ package linus.com.LMAgility.controller;
 
 import linus.com.LMAgility.mail.MailSender;
 import linus.com.LMAgility.model.Activity;
+import linus.com.LMAgility.model.Dog;
 import linus.com.LMAgility.model.Student;
+import linus.com.LMAgility.repository.DogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,9 @@ public class StudentController {
     @Autowired
     private ActivityRepository activityRepo;
 
+    @Autowired
+    private DogRepository dogRepo;
+
 
 
     @PostMapping("/student")
@@ -38,13 +43,15 @@ public class StudentController {
            }
         }
         if (!exist){
-           studentRepo.save(student);
+            saveDogs(student.getDogList());
+            studentRepo.save(student);
             MailSender mailSender = new MailSender();
             mailSender.sendConfirmationEmail(student);
         }
         return new ResponseEntity<Student>(student, HttpStatus.CREATED);
 
     }
+
     @GetMapping("/students")
     public ResponseEntity<List<Student>> getStudents(){
             return new ResponseEntity<List<Student>>(studentRepo.findAll(), HttpStatus.OK);
@@ -70,8 +77,23 @@ public class StudentController {
     @PostMapping("/AddMultipleStudents")
     public ResponseEntity<List<Student>> addMultipleStudents(@RequestBody List<Student> studentsToAdd) {
         for (int i = 0; i < studentsToAdd.size(); i++) {
+            saveDogs(studentsToAdd.get(i).getDogList());
             studentRepo.save(studentsToAdd.get(i));
         }
         return new ResponseEntity<List<Student>>(studentsToAdd, HttpStatus.CREATED);
+    }
+    @PostMapping("/addDogToStudent")
+    public ResponseEntity<Student> addDogToStudent(@RequestBody Student student){
+        Student studentfromdb = studentRepo.findByid(student.getId()).get(0);
+        studentfromdb.addDog(student.getDogList().get(0));
+        dogRepo.save(student.getDogList().get(0));
+        student = studentfromdb;
+        studentRepo.save(student);
+        return new ResponseEntity<Student>(student, HttpStatus.CREATED);
+    }
+    private void saveDogs(List<Dog> dogList) {
+        for (int i = 0; i < dogList.size(); i++) {
+            dogRepo.save(dogList.get(i));
+        }
     }
 }

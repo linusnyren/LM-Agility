@@ -2,19 +2,6 @@ package linus.com.LMAgility.mail;
 
 import linus.com.LMAgility.model.Activity;
 import linus.com.LMAgility.model.Student;
-import linus.com.LMAgility.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Component;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -36,7 +23,7 @@ public class MailSender{
                     message.setFrom(new InternetAddress(username));
                     message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(studentList.get(i).getEmail()));
                     message.setSubject("Nytt träningstillfälle på LM-Hundsport!");
-                    message.setText("Kära " + studentList.get(i).getForName() + " och " + studentList.get(i).getDogName() + "!\n Nu finns det ett nytt träningstillfälle på hemsidan! \n"
+                    message.setText("Kära " + studentList.get(i).getForName() + " och " + studentList.get(i).getDogList().get(0) + "!\n Nu finns det ett nytt träningstillfälle på hemsidan! \n"
                             + activityInfo);
                     Transport.send(message);
 
