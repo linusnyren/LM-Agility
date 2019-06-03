@@ -1,12 +1,12 @@
 package linus.com.LMAgility.model;
 
-import javax.persistence.Id;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "Student")
@@ -20,15 +20,22 @@ public class Student extends AuditModel{
     )
     private Long id;
     private String surName, forName, phone, dogName;
-    private Timestamp joined;
+
+    @ManyToOne(fetch = FetchType.LAZY
+            //,optional = false
+    )
+    @JoinColumn(name = "activity_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Activity activity;
+
 
     public Student(){};
-    public Student(String surName, String forName, String phone, String dogName, Timestamp joined) {
+    public Student(String surName, String forName, String phone, String dogName) {
         this.surName = surName;
         this.forName = forName;
         this.phone = phone;
         this.dogName = dogName;
-        this.joined = joined;
+
     }
 
     public Long getId() {
@@ -67,13 +74,7 @@ public class Student extends AuditModel{
         this.dogName = dogName;
     }
 
-    public Timestamp getJoined() {
-        return joined;
-    }
 
-    public void setJoined(Timestamp joined) {
-        this.joined = joined;
-    }
 
 
 

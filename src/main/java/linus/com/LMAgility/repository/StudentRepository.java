@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findByid(Long id);
+    Student findByPhone(String phone);
 }

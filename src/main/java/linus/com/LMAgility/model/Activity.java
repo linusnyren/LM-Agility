@@ -1,11 +1,12 @@
 package linus.com.LMAgility.model;
 
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.ManyToAny;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -23,29 +24,41 @@ public class Activity extends AuditModel{
     private String type, level, location;
     private int price;
     private Timestamp activityStart, activityEnd;
-    //private List<Student> studentList;
+
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List <Student> studentlist;
 
     public Activity(){};
 
-    public Activity(String type, String level, String location, int price, Timestamp activityStart, Timestamp activityEnd, List<Student> studentList) {
+    public Activity(String type, String level, String location, int price, Timestamp activityStart, Timestamp activityEnd, List <Student> studentlist) {
         this.type = type;
         this.level = level;
         this.location = location;
         this.price = price;
         this.activityStart = activityStart;
         this.activityEnd = activityEnd;
-       // this.studentList = studentList;
+        this.studentlist = studentlist;
+
+
     }
+
+    public List<Student> getStudentlist() {
+        return studentlist;
+    }
+    public void addToStudentList(Student student){
+        studentlist.add(student);
+    }
+    public void setStudentlist(List<Student> studentlist) {
+        this.studentlist = studentlist;
+    }
+
     public Long getId() {
         return id;
     }
-/*    public List<Student> getStudentList() {
-        return studentList;
-    }
 
-    public void addToActivity(Student student){
-        studentList.add(student);
-    };*/
     public String getType() {
         return type;
     }

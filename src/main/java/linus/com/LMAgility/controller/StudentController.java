@@ -12,33 +12,21 @@ import org.springframework.web.bind.annotation.*;
 import linus.com.LMAgility.repository.ActivityRepository;
 import linus.com.LMAgility.repository.StudentRepository;
 
-import java.sql.Timestamp;
+
+import javax.xml.ws.Response;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 @RestController
-public class RestApiController {
+public class StudentController {
     @Autowired
     private StudentRepository studentRepo;
 
     @Autowired
     private ActivityRepository activityRepo;
 
-    @GetMapping("/activities")
-    public List<Activity> getActivities(){
-        List<Activity> fakeList = new ArrayList<>();
-        List<Student> studentList = new ArrayList<>();
-        studentList.add(new Student("Nyrén", "Linus", "0704174616", "Emma", new Timestamp(Calendar.getInstance().getTimeInMillis())));
-        fakeList.add(new Activity("Agility",
-                "Nybörjare",
-                "Greggereds Kapell",
-                500,
-                new Timestamp(Calendar.getInstance().getTimeInMillis()),
-                new Timestamp(Calendar.getInstance().getTimeInMillis()),
-                studentList));
-        return fakeList;
-    }
+
+
     @PostMapping("/student")
     public ResponseEntity<Student> addStudent(@RequestBody Student student){
         List<Student> studentList = studentRepo.findAll();
@@ -54,20 +42,26 @@ public class RestApiController {
         return new ResponseEntity<Student>(student, HttpStatus.CREATED);
 
     }
-    @GetMapping("/")
+    @GetMapping("/students")
     public ResponseEntity<List<Student>> getStudents(){
-        if (studentRepo.findAll().size() == 0) {
-            List<Student> studentList = new ArrayList<>();
-            studentList.add(new Student("Nyrén", "Linus", "0704174616", "Emma", new Timestamp(Calendar.getInstance().getTimeInMillis())));
-            return new ResponseEntity<List<Student>>(studentList, HttpStatus.OK);
-        }
-        else {
-
             return new ResponseEntity<List<Student>>(studentRepo.findAll(), HttpStatus.OK);
-        }
     }
-    @RequestMapping(value = "/test", method=RequestMethod.GET)
-    public ResponseEntity<String> test(){
-        return new ResponseEntity<String>("ok", HttpStatus.OK);
+    @GetMapping("/studentbyid/{id}")
+    public ResponseEntity<Student> getStudentById(@PathVariable Long id){
+        Student studentfromdb = studentRepo.findByid(id).get(0);
+        return new ResponseEntity<Student>(studentfromdb, HttpStatus.OK);
+    }
+    @DeleteMapping("/deleteStudent/{id}")
+    public ResponseEntity<Student> deleteStudent(@PathVariable Long id){
+        Student deleteStudent = studentRepo.findByid(id).get(0);
+        studentRepo.delete(deleteStudent);
+        return new ResponseEntity<Student>(deleteStudent, HttpStatus.OK);
+    }
+    @PutMapping("/updateStudent")
+    public ResponseEntity<Student> alterStudent(@RequestBody Student student){
+        Student studentfromdb = studentRepo.findByid(student.getId()).get(0);
+        studentfromdb = student;
+        studentRepo.save(studentfromdb);
+        return new ResponseEntity<Student>(studentfromdb, HttpStatus.OK);
     }
 }
