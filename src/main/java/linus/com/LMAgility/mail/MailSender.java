@@ -24,8 +24,7 @@ import java.util.Properties;
 
 public class MailSender{
 
-
-
+    
     public void sendActivityMail(Activity activity, List<Student> students) {
         Session session = getSession();
         String activityInfo = activity.emailFormatter();
