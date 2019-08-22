@@ -26,6 +26,7 @@ public class ActivityController {
     @Autowired
     private StudentRepository studentRepo;
 
+    @CrossOrigin
     @GetMapping("/activities")
     public ResponseEntity<List<Activity>> getActivities(){
         if(activityRepo.findAll().size() == 0) {
@@ -35,7 +36,7 @@ public class ActivityController {
             dogList.add(new Dog("Fluffen"));
             Student fakeStudent = new Student("Nyrén", "Linus", "0704174616", dogList, "linusny@hotmail.com", true);
             fakeList.add(fakeStudent);
-            Activity test = new Activity("Agility", "nybörjare", "greggereds kapell", 500, new Timestamp(Calendar.getInstance().getTimeInMillis()), new Timestamp(Calendar.getInstance().getTimeInMillis()), fakeList);
+            Activity test = new Activity("Agility", "nybörjare", "greggereds kapell", 500, 5, "2019-08-21 18:30", "2019-08-21 19:30", fakeList);
 
             List<Activity> activityList = new ArrayList<>();
             activityList.add(test);
@@ -48,7 +49,7 @@ public class ActivityController {
     public ResponseEntity<Activity> getActivityById(@PathVariable Long id){
         return new ResponseEntity<Activity>(activityRepo.findByid(id).get(0), HttpStatus.OK);
     }
-
+    @CrossOrigin
     @PostMapping("/activity")
     public ResponseEntity<Activity> addActivity(@RequestBody Activity activity){
         activityRepo.save(activity);
@@ -56,14 +57,22 @@ public class ActivityController {
         mailSender.sendActivityMail(activity, studentRepo.findAll());
         return new ResponseEntity<Activity>(activity, HttpStatus.CREATED);
     }
+    @CrossOrigin
     @PostMapping("/studentToActivity")
     public ResponseEntity<Activity> studentToActivity(@RequestBody Activity activity){
         Activity activityfromdb = activityRepo.findByid(activity.getId()).get(0);
-        Student studentfromdb = studentRepo.findByid(activity.getStudentlist().get(0).getId()).get(0);
-        activity = activityfromdb;
-        activity.addToStudentList(studentfromdb);
-        activityRepo.save(activity);
-        return new ResponseEntity<Activity>(activity, HttpStatus.CREATED);
+        if (activityfromdb.getStudentlist().size() < activityfromdb.getParticipants()) {
+            System.out.println("körs");
+            Student studentfromdb = studentRepo.findByPhone(activity.getStudentlist().get(0).getPhone());
+            System.out.println(studentfromdb.getForName());
+            activity = activityfromdb;
+            activity.addToStudentList(studentfromdb);
+            activityRepo.save(activity);
+            return new ResponseEntity<Activity>(activity, HttpStatus.CREATED);
+        }
+        else {
+            return new ResponseEntity<Activity>(activity, HttpStatus.BAD_REQUEST);
+        }
     }
     @DeleteMapping("/removeActivity/{id}")
     public ResponseEntity<Activity> removeActivity(@PathVariable Long id){

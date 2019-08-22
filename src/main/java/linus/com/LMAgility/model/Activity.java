@@ -23,7 +23,18 @@ public class Activity extends AuditModel{
     private Long id;
     private String type, level, location;
     private int price;
-    private Timestamp activityStart, activityEnd;
+
+    public int getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(int participants) {
+        this.participants = participants;
+    }
+
+    private int participants;
+    private String activityStart, activityEnd;
+
 
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -31,11 +42,12 @@ public class Activity extends AuditModel{
 
     public Activity(){};
 
-    public Activity(String type, String level, String location, int price, Timestamp activityStart, Timestamp activityEnd, List <Student> studentlist) {
+    public Activity(String type, String level, String location, int price,int participants, String activityStart, String activityEnd, List <Student> studentlist) {
         this.type = type;
         this.level = level;
         this.location = location;
         this.price = price;
+        this.participants = participants;
         this.activityStart = activityStart;
         this.activityEnd = activityEnd;
         this.studentlist = studentlist;
@@ -45,7 +57,7 @@ public class Activity extends AuditModel{
     public String emailFormatter(){
         StringBuilder sb = new StringBuilder();
         sb.append("Plats : " +location+"\n");
-        sb.append("Start : " +formatDate(activityStart) +"\n Slut: " +formatDate(activityEnd) +"\n");
+        sb.append("Start : " +activityStart +"\n Slut: " +activityEnd +"\n");
         sb.append("Träningstyp : " +type +"\n");
         sb.append("Nivå : " +level +"\n");
         sb.append("Pris : " +price);
@@ -105,19 +117,19 @@ public class Activity extends AuditModel{
         this.price = price;
     }
 
-    public Timestamp getActivityStart() {
+    public String getActivityStart() {
         return activityStart;
     }
 
-    public void setActivityStart(Timestamp activityStart) {
+    public void setActivityStart(String activityStart) {
         this.activityStart = activityStart;
     }
 
-    public Timestamp getActivityEnd() {
+    public String getActivityEnd() {
         return activityEnd;
     }
 
-    public void setActivityEnd(Timestamp activityEnd) {
+    public void setActivityEnd(String activityEnd) {
         this.activityEnd = activityEnd;
     }
 

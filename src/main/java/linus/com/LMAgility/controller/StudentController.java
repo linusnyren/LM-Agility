@@ -32,7 +32,7 @@ public class StudentController {
     private DogRepository dogRepo;
 
 
-
+    @CrossOrigin
     @PostMapping("/student")
     public ResponseEntity<Student> addStudent(@RequestBody Student student){
         List<Student> studentList = studentRepo.findAll();
@@ -51,7 +51,7 @@ public class StudentController {
         return new ResponseEntity<Student>(student, HttpStatus.CREATED);
 
     }
-
+    @CrossOrigin
     @GetMapping("/students")
     public ResponseEntity<List<Student>> getStudents(){
             return new ResponseEntity<List<Student>>(studentRepo.findAll(), HttpStatus.OK);
@@ -79,6 +79,8 @@ public class StudentController {
         for (int i = 0; i < studentsToAdd.size(); i++) {
             saveDogs(studentsToAdd.get(i).getDogList());
             studentRepo.save(studentsToAdd.get(i));
+            MailSender mailSender = new MailSender();
+            mailSender.sendConfirmationEmail(studentsToAdd.get(i));
         }
         return new ResponseEntity<List<Student>>(studentsToAdd, HttpStatus.CREATED);
     }
