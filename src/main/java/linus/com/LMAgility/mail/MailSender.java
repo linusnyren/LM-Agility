@@ -8,7 +8,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.List;
 import java.util.Properties;
 
-
+/*
 public class MailSender{
 
     public void sendActivityMail(Activity activity, List<Student> students) {
@@ -76,4 +76,4 @@ public class MailSender{
                 });
         return session;
     }
-}
+}*/
