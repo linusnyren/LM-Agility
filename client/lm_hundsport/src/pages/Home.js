@@ -5,8 +5,52 @@ import bild2 from './images/bild2.jpg'
 import bild3 from './images/bild3.jpg'
 export default function Home() {
     return (
-        <div >
-                <div >            
+        <div>
+            <div>
+                <div id="backdrop" style={{zIndex:'1', position:'absolute', width:'100%', height:'100%'}}><img alt="" src='/backdrop.png' />
+                <Carousel>
+                <Carousel.Item>
+                    <img
+                        className="d-block w-100"
+                        src={bild1}
+                        alt="First slide"
+                    />
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                        className="d-block w-100"
+                        src={bild2}
+                        alt="Third slide"
+                    />
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                        className="d-block w-100"
+                        src={bild3}
+                        alt="Third slide"
+                    />
+                </Carousel.Item>
+            </Carousel>
+                </div>
+
+                <div id="curtain" style={{zIndex:'2', position:'relative'}}>
+                <h1>Välkomen till LM-Hundsport</h1>
+                <p>
+                LM-Hundsport drivs av mig, Linn Magnusson.
+                </p>
+                <p>
+                Jag kommer till att börja med erbjuda kurser och privatträning inom agility.<br></br>
+                Kurser annonseras på denna sida och då kommer information kring nivå, datum och pris att presenteras.<br></br>
+                Önskas privatträning går det alldeles utmärkt! Tillgängliga tider för privatträning hittar ni i albumet "privatträning".<br></br>
+                Boka gör ni genom att skicka mail till lmhundsport@hotmail.com
+                </p>
+                    </div>
+            </div></div>
+         
+    )
+}
+
+/*       <div>            
                     <h1>Välkomen till LM-Hundsport</h1>
                 <p>
                 LM-Hundsport drivs av mig, Linn Magnusson.
@@ -18,7 +62,9 @@ export default function Home() {
                 Boka gör ni genom att skicka mail till lmhundsport@hotmail.com
                 </p>
                 </div>
-            <Carousel style={{width:'70%', margin:'auto'}}>
+                <div>
+</div>
+            <Carousel>
                 <Carousel.Item>
                 <Carousel.Caption>
                     <h3>First slide label</h3>
@@ -54,6 +100,4 @@ export default function Home() {
                 </Carousel.Item>
             </Carousel>
 
-        </div>
-    )
-}
+        </div>*/
