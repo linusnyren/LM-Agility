@@ -5,65 +5,56 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import {Nav, Navbar, Button } from 'react-bootstrap'
+import {Nav, Navbar, Button, Form, FormControl, NavDropdown } from 'react-bootstrap'
+import Event from './components/Event'
+import Homes from './pages/Home'
 export default function AppRouter() {
   return (
       <div>
           <Router>
-    <Navbar bg="light" expand="lg">
-    <Navbar.Brand href="#home">LM-HundSport</Navbar.Brand>
-    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="mr-auto">
-        <Nav.Link href="/">Home</Nav.Link>
-        <Nav.Link to="/about">About</Nav.Link>
-      </Nav>
-    </Navbar.Collapse>
-  </Navbar>
+            <Navbar sticky='top' bg="dark" variant="dark" expand="lg">
+                <Navbar.Brand href="#home">LM-HundSport</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+                <Nav.Link href="/"><Link to="/">        Hem             </Link></Nav.Link>
+                <Nav.Link ><Link to="/events">  Aktiviter       </Link></Nav.Link>
+                <Nav.Link ><Link to="/contact"> Kontakta mig    </Link></Nav.Link>
+            </Nav>
+            <Navbar.Text>
+                Signed in as: <a href="#login">DogLover</a>
+            </Navbar.Text>
+            </Navbar.Collapse>
+            </Navbar>
     
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/about">
-            <About />
+          <Route path="/events">
+            <Events />
           </Route>
-          <Route path="/users">
-            <Users />
+          <Route path="/contact">
+            <Contact />
           </Route>
           <Route path="/">
             <Home />
           </Route>
         </Switch>
-      </div>
     </Router>
     </div>
   );
 }
 
 function Home() {
-  return <h2>Home</h2>;
+  return <Homes/>
 }
 
-function About() {
-  return <h2>About</h2>;
-}
 
-function Users() {
-  return <h2>Users</h2>;
+function Events() {
+  return <Event/>;
+}
+function Contact(){
+    return <h2>Contact</h2>;
 }
 

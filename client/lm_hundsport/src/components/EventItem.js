@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Card, Modal, Button, Accordion} from 'react-bootstrap'
+import {Card, Modal, Button, Accordion, Col} from 'react-bootstrap'
 export default function EventItem(props) {
     /*activityEnd: "snart"
 activityStart: "snart"
@@ -17,7 +17,6 @@ const handleShow = () => setShow(true);
 
 let activity = props.data;
     return (
-        <div>
             <Accordion>
             <Card className="text-white"bg="primary" style={{borderRadius:"1rem", margin:'2rem', width:"16rem"}}>
                     <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -60,6 +59,5 @@ let activity = props.data;
                     </Accordion.Collapse>
                 </Card>
             </Accordion>
-        </div>
     )
 }

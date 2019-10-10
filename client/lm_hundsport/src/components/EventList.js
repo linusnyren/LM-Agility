@@ -22,18 +22,27 @@ export default function EventList() {
   }
   if(!loading){
     return(
-      <Container>
-        <Row>
-        <Col>
-          <div>
+      <Jumbotron>
+          <h1>Hello, world!</h1>
+        <p>
+          This is a simple hero unit, a simple jumbotron-style component for calling
+          extra attention to featured content or information.
+      </p>
+        <Container>
+          <Row>
             {activities.map(event =>
+            
+            <Col>
               <div key={event.id}>
               <EventItem data={event}/>
-            </div>)}
-          </div>
-        </Col>
-        </Row>
-      </Container> 
+            </div>
+            </Col>
+            
+            )}
+            
+            </Row>
+        </Container>
+      </Jumbotron> 
     )
   }
 
