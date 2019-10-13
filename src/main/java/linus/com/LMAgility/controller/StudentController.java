@@ -1,6 +1,7 @@
 package linus.com.LMAgility.controller;
 
 
+import linus.com.LMAgility.model.Dog;
 import linus.com.LMAgility.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,8 @@ import linus.com.LMAgility.repository.StudentRepository;
 
 import java.util.List;
 
-@RestController("/rest")
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class StudentController {
     @Autowired
     private StudentRepository studentRepo;
@@ -23,10 +25,11 @@ public class StudentController {
     @Autowired
     private ActivityRepository activityRepo;
 
-    @CrossOrigin
-    @PostMapping("/student")
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("rest/student")
     public ResponseEntity<Student> addStudent(@RequestBody Student student){
-        if(studentRepo.findByPhone(student.getPhone()) != null){
+
+        if(studentRepo.findByPhone(student.getPhone()) == null){
             studentRepo.save(student);
             return new ResponseEntity<Student>(studentRepo.findByPhone(student.getPhone()), HttpStatus.CREATED);
         }
@@ -39,7 +42,7 @@ public class StudentController {
     public ResponseEntity<List<Student>> getStudents(){
             return new ResponseEntity<List<Student>>(studentRepo.findAll(), HttpStatus.OK);
     }
-    @DeleteMapping("/deleteStudent/{id}")
+    @DeleteMapping("/deleteStudent")
     public ResponseEntity<Student> deleteStudent(@RequestBody Student student){
         studentRepo.delete(student);
         return new ResponseEntity<Student>(student, HttpStatus.OK);
@@ -50,5 +53,10 @@ public class StudentController {
         studentfromdb = student;
         studentRepo.save(studentfromdb);
         return new ResponseEntity<Student>(studentfromdb, HttpStatus.OK);
+    }
+    @PostMapping("/addDog")
+    public ResponseEntity<Student> addDog(@RequestBody Student student, Dog dog){
+        studentRepo.findByid(student.getId()).get(0).getDogList().add(dog);
+        return new ResponseEntity<Student>(studentRepo.findByid(student.getId()).get(0), HttpStatus.CREATED);
     }
 }

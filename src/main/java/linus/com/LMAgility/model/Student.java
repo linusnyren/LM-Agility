@@ -1,16 +1,14 @@
 package linus.com.LMAgility.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Data
-@Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Student")
 public class Student extends AuditModel{
     @Id
@@ -21,15 +19,9 @@ public class Student extends AuditModel{
             initialValue = 1
     )
     private Long id;
-    private String surName;
-    private String forName;
-    private String phone;
+    private String surName, forName, phone, email;
+    @OneToMany
+    private List<Dog> dogList;
 
 
-    public Student(){};
-    public Student(String surName, String forName, String phone) {
-        this.surName = surName;
-        this.forName = forName;
-        this.phone = phone;
-    }
 }

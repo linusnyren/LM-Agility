@@ -5,24 +5,27 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import './AppRouter.css'
 import {Nav, Navbar, Button, Form, FormControl, NavDropdown } from 'react-bootstrap'
-import Event from './components/Event'
-import Homes from './pages/Home'
+import EventPage from './pages/EventPage'
+import Contact from './pages/Contact'
+import Home from './pages/Home'
+import Login from './pages/Login'
 export default function AppRouter() {
   return (
       <div>
           <Router>
             <Navbar sticky='top' bg="dark" variant="dark" expand="lg">
-                <Navbar.Brand href="#home">LM-HundSport</Navbar.Brand>
+                <Navbar.Brand><Link className="navLogo" to="/"> LM-HundSport             </Link></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-                <Nav.Link href="/"><Link to="/">        Hem             </Link></Nav.Link>
-                <Nav.Link ><Link to="/events">  Aktiviter       </Link></Nav.Link>
-                <Nav.Link ><Link to="/contact"> Kontakta mig    </Link></Nav.Link>
+                <Link className="navBarItem" to="/"> Hem             </Link>
+                <Link className="navBarItem" to="/events">  Aktiviter       </Link>
+                <Link className="navBarItem" to="/contact"> Kontakta mig    </Link>
             </Nav>
             <Navbar.Text>
-                Signed in as: <a href="#login">DogLover</a>
+                <Link to="/login">Login</Link>
             </Navbar.Text>
             </Navbar.Collapse>
             </Navbar>
@@ -31,13 +34,16 @@ export default function AppRouter() {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/events">
-            <Events />
+          <Route path="/login" component={Login}>
+            <Login />
           </Route>
-          <Route path="/contact">
+          <Route path="/events" component={EventPage}>
+            <EventPage />
+          </Route>
+          <Route path="/contact" component={Contact}>
             <Contact />
           </Route>
-          <Route path="/">
+          <Route path="/" component={Home}>
             <Home />
           </Route>
         </Switch>
@@ -46,15 +52,8 @@ export default function AppRouter() {
   );
 }
 
-function Home() {
-  return <Homes/>
-}
 
 
-function Events() {
-  return <Event/>;
-}
-function Contact(){
-    return <h2>Contact</h2>;
-}
+
+
 

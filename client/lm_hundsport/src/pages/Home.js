@@ -1,14 +1,13 @@
 import React from 'react'
-import {Jumbotron, Carousel} from 'react-bootstrap'
+import {Jumbotron, Carousel, Card, Button} from 'react-bootstrap'
 import bild1 from './images/bild1.jpg'
 import bild2 from './images/bild2.jpg'
 import bild3 from './images/bild3.jpg'
 export default function Home() {
     return (
-        <div>
-            <div>
-                <div id="backdrop" style={{zIndex:'1', position:'absolute', width:'100%', height:'100%'}}><img alt="" src='/backdrop.png' />
-                <Carousel>
+        <span>
+                <div id="backdrop" style={{zIndex:'1', position:'fixed', width:'100%', height:'100%', marginTop:'-15%', marginBottom:'-15%'}}>
+                <Carousel interval='3000' indicators='false' fade='true'>
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
@@ -31,21 +30,23 @@ export default function Home() {
                     />
                 </Carousel.Item>
             </Carousel>
-                </div>
-
-                <div id="curtain" style={{zIndex:'2', position:'relative'}}>
-                <h1>Välkomen till LM-Hundsport</h1>
-                <p>
-                LM-Hundsport drivs av mig, Linn Magnusson.
-                </p>
-                <p>
-                Jag kommer till att börja med erbjuda kurser och privatträning inom agility.<br></br>
-                Kurser annonseras på denna sida och då kommer information kring nivå, datum och pris att presenteras.<br></br>
-                Önskas privatträning går det alldeles utmärkt! Tillgängliga tider för privatträning hittar ni i albumet "privatträning".<br></br>
-                Boka gör ni genom att skicka mail till lmhundsport@hotmail.com
-                </p>
-                    </div>
-            </div></div>
+            </div>
+            <div id="curtain" style={{zIndex:'2', position:'relative', marginTop:'15%'}}>
+                <Card border='primary' style={{width:'50%', margin:'auto', postiton:'fixed'}}>
+                    <Card.Body>
+                    <Card.Title>Välkommen till LM-Hundsport</Card.Title>
+                        <Card.Text>
+                        <p>
+                            Jag kommer till att börja med erbjuda kurser och privatträning inom agility.<br></br>
+                            Kurser annonseras på denna sida och då kommer information kring nivå, datum och pris att presenteras.<br></br>
+                            Önskas privatträning går det alldeles utmärkt! Tillgängliga tider för privatträning hittar ni i albumet "privatträning".<br></br>
+                        </p>
+                        </Card.Text>
+                    <Button variant="primary">Go somewhere</Button>
+                    </Card.Body>
+                </Card>
+            </div>
+        </span>
          
     )
 }
