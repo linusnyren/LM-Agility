@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
-import {Card, Modal, Button, Accordion, Col} from 'react-bootstrap'
+import {Card, Modal, Button, Accordion} from 'react-bootstrap'
+import Moment from 'react-moment';
+
 export default function EventItem(props) {
     /*activityEnd: "snart"
 activityStart: "snart"
@@ -10,6 +12,7 @@ participants: 5
 price: 900
 studentlist: []
 type: "Agility"*/
+
 const [show, setShow] = useState(false);
 
 const handleClose = () => setShow(false);
@@ -23,7 +26,16 @@ let activity = props.data;
                     <Card.Header>{activity.type}</Card.Header>
                         
                             <br></br>
-                            <h6>Tid: {activity.activityStart} - {activity.activityEnd}</h6>
+                            <h6>Tid: 
+                            <Moment format="DD/MM-YY HH:mm">
+                                {activity.activityStart}
+                            </Moment>
+                            -
+                            <Moment format="HH:mm">
+                                {activity.activityEnd}
+                            </Moment>
+                            
+                            </h6>
                             <h6>Plats: {activity.location}</h6>
                             <h6>Nivå: {activity.level}</h6>
                         

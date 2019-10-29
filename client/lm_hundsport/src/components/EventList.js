@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import EventItem from './EventItem'
-import {Card, Jumbotron, Col, Row, Container} from 'react-bootstrap'
+import {Jumbotron, Col, Row, Container} from 'react-bootstrap'
 export default function EventList() {
     
   const[activities, setActivities] = useState([])
@@ -31,11 +31,10 @@ export default function EventList() {
         <Container>
           <Row>
             {activities.map(event =>
-            
-            <Col>
-              <div key={event.id}>
+            <Col key={event.id}> 
+              
               <EventItem data={event}/>
-            </div>
+            
             </Col>
             
             )}

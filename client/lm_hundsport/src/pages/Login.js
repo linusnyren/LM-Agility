@@ -29,11 +29,6 @@ export default function Login(){
       handleClose()
     }
     };
-    /*
-        private Long id;
-    private String surName, forName, phone, email;
-    @OneToMany
-    private List<Dog> dogList;*/
     return(
         <div>
             <Jumbotron style={{width:'50%', height:'50%', margin:'auto', marginTop:'3%'}} bg="primary">
