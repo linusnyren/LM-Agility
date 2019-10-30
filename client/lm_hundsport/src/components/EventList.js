@@ -33,7 +33,7 @@ export default function EventList() {
             {activities.map(event =>
             <Col key={event.id}> 
               
-              <EventItem data={event}/>
+              <EventItem data={event} activities={setActivities}/>
             
             </Col>
             

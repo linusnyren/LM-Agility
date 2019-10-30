@@ -3,16 +3,6 @@ import {Card, Modal, Button, Accordion} from 'react-bootstrap'
 import Moment from 'react-moment';
 
 export default function EventItem(props) {
-    /*activityEnd: "snart"
-activityStart: "snart"
-id: 52
-level: "Nybörjare"
-location: "Greggered"
-participants: 5
-price: 900
-studentlist: []
-type: "Agility"*/
-
 const [show, setShow] = useState(false);
 
 const handleClose = () => setShow(false);
@@ -24,7 +14,6 @@ let activity = props.data;
             <Card className="text-white"bg="primary" style={{borderRadius:"1rem", margin:'2rem', width:"16rem"}}>
                     <Accordion.Toggle as={Card.Header} eventKey="0">
                     <Card.Header>{activity.type}</Card.Header>
-                        
                             <br></br>
                             <h6>Tid: 
                             <Moment format="DD/MM-YY HH:mm">
@@ -54,17 +43,25 @@ let activity = props.data;
                                         <Card.Header>{activity.type}</Card.Header>
                                             <Card.Title>Vill du anmäla dig<br></br>till denna aktivitet?</Card.Title>
                                             <Card.Body>
-                                             <h6>Tid: {activity.activityStart} - {activity.activityEnd}</h6>
+                                             <h6>Tid:                             
+                                                 <Moment format="DD/MM-YY HH:mm">
+                                                    {activity.activityStart}
+                                                </Moment>
+                                                -
+                                                <Moment format="HH:mm">
+                                                    {activity.activityEnd}
+                                                </Moment>
+                                             </h6>
                                              <h6>Plats: {activity.location}</h6>
                                              <h6>Nivå: {activity.level}</h6>
-                                            <h6>Pris: {activity.price}kr</h6>
-                                            <h6>Anmälda: {activity.studentlist.length}/{activity.participants}</h6>
+                                             <h6>Pris: {activity.price}kr</h6>
+                                             <h6>Anmälda: {activity.studentlist.length}/{activity.participants}</h6>
                                         </Card.Body>
                                     </Card>
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button block variant="outline-danger" onClick={handleClose}>Nej</Button><br></br>
-                                    <Button block variant="outline-success" onClick={handleClose}>Ja</Button>
+                                    <Button block variant="outline-success" onClick={() => alert("här är anmälan med telefonnummer")}>Ja</Button>
                                 </Modal.Footer>
                             </Modal>
                         </Card.Body>

@@ -22,6 +22,4 @@ public class Student extends AuditModel{
     private String surName, forName, phone, email;
     @OneToMany
     private List<Dog> dogList;
-
-
 }
