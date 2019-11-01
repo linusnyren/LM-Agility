@@ -16,32 +16,21 @@ export default function EventList() {
   return (
     <div>
       laddar events
-
     </div>
   )
   }
   if(!loading){
     return(
-      <Jumbotron>
-          <h1>Hello, world!</h1>
-        <p>
-          This is a simple hero unit, a simple jumbotron-style component for calling
-          extra attention to featured content or information.
-      </p>
         <Container>
           <Row>
             {activities.map(event =>
             <Col key={event.id}> 
-              
               <EventItem data={event} activities={setActivities}/>
-            
             </Col>
-            
             )}
-            
             </Row>
         </Container>
-      </Jumbotron> 
+    
     )
   }
 
