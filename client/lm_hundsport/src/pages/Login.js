@@ -10,7 +10,6 @@ export default function Login(){
                                     email: null,})
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
     const [validated, setValidated] = useState(false);
 
     const handleSubmit = event => {
