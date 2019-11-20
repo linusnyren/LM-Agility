@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import EventItem from './EventItem'
-import {Jumbotron, Col, Row, Container} from 'react-bootstrap'
+import {Col, Row, Container} from 'react-bootstrap'
 export default function EventList() {
     
   const[activities, setActivities] = useState([])

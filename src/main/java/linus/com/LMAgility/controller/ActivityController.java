@@ -21,7 +21,6 @@ public class ActivityController {
     @CrossOrigin
     @GetMapping("/activities")
     public ResponseEntity<List<Activity>> getActivities(){
-        System.out.println("hello");
         return new ResponseEntity<List<Activity>>(activityRepo.findAll(), HttpStatus.OK);
     }
     @CrossOrigin
