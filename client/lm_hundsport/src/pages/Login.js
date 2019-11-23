@@ -1,23 +1,24 @@
-import React, {useState} from 'react'
-import {Jumbotron, Form, Button, Modal, Col}  from 'react-bootstrap'
-import axios from 'axios'
+import React, { useState } from 'react'
+import { Jumbotron, Button } from 'react-bootstrap'
 import Register from './Register'
-export default function Login(){
+export default function Login() {
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    /*const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [validated, setValidated] = useState(false);
+    const [validated, setValidated] = useState(false);*/
 
 
-    return(
+    return (
         <div>
-            <Jumbotron style={{width:'50%', height:'50%', margin:'auto', marginTop:'3%'}} bg="primary">
-            <Button size="sm" variant="primary" onClick={() => setShow(!show)}>
-                Registrering
+            <Jumbotron style={{ width: '50%', height: '50%', margin: 'auto', marginTop: '3%' }} bg="primary">
+                <Button size="sm" variant="primary" onClick={() => setShow(!show)}>
+                    Registrering
             </Button>
-            <Register show={show} setShow={setShow.bind(this)}/>
-                
+                <Register show={show} setShow={setShow.bind(this)} />
+
+                <br></br><h3> <i>Inloggning kommer i nästa version</i></h3>
+                {/*  
                 <Form>
                 <h1>Login</h1>
                     <Form.Group controlId="formBasicEmail">
@@ -39,10 +40,10 @@ export default function Login(){
                             Logga in
                     </Button>
                 </Form>
-                    
+                */}
             </Jumbotron>
         </div>
-        
+
     )
 }
 /*
@@ -91,7 +92,7 @@ export default function Login(){
                       feedback="Ni måste godkänna användaravtalen innan registrering"
                     />
                   </Form.Group>
-                
+
                 </Modal.Body>
                 <Modal.Footer>
                     <Button type="submit" block variant="outline-success" onClick={handleSubmit}>Registrera</Button><br></br>

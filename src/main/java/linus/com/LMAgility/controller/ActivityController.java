@@ -30,24 +30,38 @@ public class ActivityController {
         return new ResponseEntity<Activity>(activity, HttpStatus.CREATED);
     }
     @CrossOrigin
-    @PostMapping("/studentToActivity")
-    public ResponseEntity<Activity> studentToActivity(@RequestBody Activity activity){
-        Activity activityfromdb = activityRepo.findByid(activity.getId());
-        if (activityfromdb.getStudentlist().size() < activityfromdb.getParticipants()) {
-            Student studentfromdb = studentRepo.findByPhone(activity.getStudentlist().get(0).getPhone());
-            activity = activityfromdb;
-            activity.getStudentlist().add(studentfromdb);
-            activityRepo.save(activity);
-            return new ResponseEntity<Activity>(activity, HttpStatus.CREATED);
+    @PostMapping("/studentToActivity/{eventid}/{phone}")
+    public ResponseEntity<Activity> studentToActivity(@PathVariable long eventid, @PathVariable String phone){
+        Activity activityfromdb = activityRepo.findByid(eventid);
+        try {
+            Student studentfromdb = studentRepo.findByPhone(phone);
+            activityfromdb.getStudentlist().add(studentfromdb);
+            activityRepo.save(activityfromdb);
+            return new ResponseEntity<Activity>(activityfromdb, HttpStatus.CREATED);
         }
-        else {
-            return new ResponseEntity<Activity>(activity, HttpStatus.BAD_REQUEST);
+        catch(Exception e){
+            return new ResponseEntity<>(activityfromdb, HttpStatus.valueOf(404));
         }
     }
+    @CrossOrigin
     @DeleteMapping("/removeActivity/{id}")
     public ResponseEntity<Activity> removeActivity(@PathVariable Long id){
         Activity activityfromdb = activityRepo.findByid(id);
         activityRepo.delete(activityfromdb);
         return new ResponseEntity<Activity>(activityfromdb, HttpStatus.OK);
+    }
+    @CrossOrigin
+    @PostMapping("/search")
+    public List<Activity> searchActivity(@RequestBody Search search){
+        StringBuilder sb = new StringBuilder();
+        sb.append(" where id > 0");
+        if(search.getActivity() != null){
+            sb.append(" and activity = "+search.getActivity());
+        }
+        if(search.getPrice() != null){
+            sb.append(" and price = "+search.getPrice());
+        }
+        return activityRepo.search(sb.toString());
+
     }
 }
