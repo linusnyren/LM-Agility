@@ -5,21 +5,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="Dog")
-public class Dog extends AuditModel{
+public class Dog implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "dog_generator")
-    @SequenceGenerator(
-            name="dog_generator",
-            sequenceName="student_sequence",
-            initialValue = 1
-            )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name, age, level;
 }

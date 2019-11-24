@@ -4,24 +4,27 @@ import EventItem from './EventItem'
 import { Col, Row, Container } from 'react-bootstrap'
 import { Form, Button, Jumbotron } from 'react-bootstrap'
 export default function EventList() {
-
   const [activities, setActivities] = useState([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState({
     activity: null,
-    price: null
+    price: 0
   })
-  useEffect(() => {
-    axios.get("http://localhost:8080/activities")
-      .then(res => setActivities(res.data))
-    setLoading(false)
-  }, [])
-
+  const [uniques, setUniques] = useState([])
   const filter = () => {
+    if(search.price === "Alla") setSearch(search, search.price = null); 
     axios.post("http://localhost:8080/search", search)
       .then(res => setActivities(res.data))
-    setLoading(false)
   }
+  useEffect(() => {
+    axios.get("http://localhost:8080/activities")
+      .then(res => {
+        setActivities(res.data)
+        setUniques(res.data)
+      })
+      
+      setLoading(false)
+  }, [])
 
 
   if (loading) {
@@ -34,11 +37,22 @@ export default function EventList() {
   if (!loading) {
     return (
       <Container>
-        <Form.Group controlId="text">
+        <Form.Group controlId="exampleForm.ControlSelect1">
           <Form.Label>Aktivitets typ</Form.Label>
-          <Form.Control type="text" placeholder="Agility t.ex" onChange={e => setSearch(search, search.activity = e.target.value)} />
+          <Form.Control as="select" onChange={e => {setSearch(search, search.activity = e.target.value); filter();}}>
+            <option key={"Alla"}>Alla</option>
+            {Array.from(new Set(uniques.map(x => x.type))).map(type => 
+              <option key={type}>{type}</option>
+            )}
+          </Form.Control>
+          <Form.Label>Pris</Form.Label>
+          <Form.Control as="select" onChange={e => {setSearch(search, search.price = e.target.value); filter();}}>
+            <option key={null} value={null}>Alla</option>
+            {Array.from(new Set(uniques.map(x => x.price))).map(type => 
+              <option key={type}>{type}</option>
+            )}
+          </Form.Control>
         </Form.Group>
-        <Button onClick={() => filter()}>Sök</Button>
         <Row>
           {activities.map(event =>
             <Col key={event.id}>

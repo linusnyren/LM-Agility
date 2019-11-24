@@ -3,6 +3,7 @@ package linus.com.LMAgility.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -10,14 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Student")
-public class Student extends AuditModel{
+public class Student implements Serializable {
     @Id
-    @GeneratedValue(generator = "student_generator")
-    @SequenceGenerator(
-            name = "student_generator",
-            sequenceName = "student_sequence",
-            initialValue = 1
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String surName, forName, phone, email;
     @OneToMany

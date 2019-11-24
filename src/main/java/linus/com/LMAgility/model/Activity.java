@@ -1,29 +1,20 @@
 package linus.com.LMAgility.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ManyToAny;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "Activity")
-public class Activity extends AuditModel{
+public class Activity implements Serializable {
     @Id
-    @GeneratedValue(generator = "activity_generator")
-    @SequenceGenerator(
-            name = "activity_generator",
-            sequenceName = "activity_sequence",
-            initialValue = 1
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String type, level, location;
     private int price;

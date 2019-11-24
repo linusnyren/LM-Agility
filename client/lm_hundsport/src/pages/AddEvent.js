@@ -17,6 +17,9 @@ export default function AddEvent() {
     })
     const [time, setTime] = useState({ start: null, end: null })
     const submit = () => {
+        console.log(event)
+        Axios.post("http://localhost:8080/activity", event)
+            .then(res => console.log(res.data))
         //Fri Nov 08 2019 16:39:03 GMT+0100 (centraleuropeisk normaltid)
     }
     /*Axios.post("http://localhost:8080/activity", event)

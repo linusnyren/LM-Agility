@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @RestController
@@ -17,6 +19,9 @@ public class ActivityController {
 
     @Autowired
     private StudentRepository studentRepo;
+
+    @Autowired
+    private EntityManager entityManager;
 
     @CrossOrigin
     @GetMapping("/activities")
@@ -54,14 +59,22 @@ public class ActivityController {
     @PostMapping("/search")
     public List<Activity> searchActivity(@RequestBody Search search){
         StringBuilder sb = new StringBuilder();
-        sb.append(" where id > 0");
-        if(search.getActivity() != null){
-            sb.append(" and activity = "+search.getActivity());
-        }
-        if(search.getPrice() != null){
-            sb.append(" and price = "+search.getPrice());
-        }
-        return activityRepo.search(sb.toString());
+        sb.append("Select * from Activity where id > 0");
+
+            if (search.getActivity() != null) {
+                if(!search.getActivity().contains("Alla")){
+                    sb.append(" and type = \'" + search.getActivity() + "\'");
+                }
+                else{
+                    return activityRepo.findAll();
+                }
+
+            }
+            if (search.getPrice() != 0) {
+                sb.append(" and price = " + search.getPrice());
+            }
+
+            return entityManager.createNativeQuery(sb.toString(), Activity.class).getResultList();
 
     }
 }
