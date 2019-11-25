@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import EventItem from './EventItem'
 import { Col, Row, Container } from 'react-bootstrap'
-import { Form, Button, Jumbotron } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 export default function EventList() {
   const [activities, setActivities] = useState([])
   const [loading, setLoading] = useState(true)
@@ -12,7 +12,8 @@ export default function EventList() {
   })
   const [uniques, setUniques] = useState([])
   const filter = () => {
-    if(search.price === "Alla") setSearch(search, search.price = null); 
+    if(search.price === "Alla") setSearch(search, search.price = 0); 
+    if(search.activity === "Alla") setSearch(search, search.activity = null)
     axios.post("http://localhost:8080/search", search)
       .then(res => setActivities(res.data))
   }

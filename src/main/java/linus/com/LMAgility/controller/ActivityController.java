@@ -29,10 +29,16 @@ public class ActivityController {
         return new ResponseEntity<List<Activity>>(activityRepo.findAll(), HttpStatus.OK);
     }
     @CrossOrigin
-    @PostMapping("/activity")
-    public ResponseEntity<Activity> addActivity(@RequestBody Activity activity){
-        activityRepo.save(activity);
-        return new ResponseEntity<Activity>(activity, HttpStatus.CREATED);
+    @PostMapping("/activity/{pw}")
+    public ResponseEntity<Activity> addActivity(@RequestBody Activity activity, @PathVariable String pw){
+        if(pw.contains("Emmagosen")) {
+            Activity a = new Activity(activity.getType(), activity.getLevel(), activity.getLocation(), activity.getPrice(), activity.getParticipants(), activity.getActivityStart(), activity.getActivityEnd(), activity.getTimeStart(), activity.getTimeEnd(), activity.getStudentlist());
+            activityRepo.save(a);
+            return new ResponseEntity<>(a, HttpStatus.CREATED);
+        }
+        else{
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
     @CrossOrigin
     @PostMapping("/studentToActivity/{eventid}/{phone}")
@@ -62,13 +68,7 @@ public class ActivityController {
         sb.append("Select * from Activity where id > 0");
 
             if (search.getActivity() != null) {
-                if(!search.getActivity().contains("Alla")){
-                    sb.append(" and type = \'" + search.getActivity() + "\'");
-                }
-                else{
-                    return activityRepo.findAll();
-                }
-
+                sb.append(" and type = \'" + search.getActivity() + "\'");
             }
             if (search.getPrice() != 0) {
                 sb.append(" and price = " + search.getPrice());
