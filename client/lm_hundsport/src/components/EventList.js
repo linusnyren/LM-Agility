@@ -1,21 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import EventItem from './EventItem'
-import { Col, Row, Container } from 'react-bootstrap'
+import { Col, Row, Container, Button } from 'react-bootstrap'
 import { Form } from 'react-bootstrap'
+import { DatePickerInput } from 'rc-datepicker'
+import 'moment/locale/sv.js';
+import 'rc-datepicker/lib/style.css';
+
 export default function EventList() {
   const [activities, setActivities] = useState([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState({
     activity: null,
     price: 0,
-    location: null
+    location: null,
+    date: null,
+    orderBy:null
   })
   const [uniques, setUniques] = useState([])
   const filter = () => {
     if(search.price === "Alla") setSearch(search, search.price = 0); 
     if(search.activity === "Alla") setSearch(search, search.activity = null)
     if(search.location === "Alla") setSearch(search, search.location = null)
+    if(search.orderBy === "Alla") setSearch(search, search.orderBy = null)
     axios.post("http://localhost:8080/search", search)
       .then(res => setActivities(res.data))
   }
@@ -67,6 +74,28 @@ export default function EventList() {
             {Array.from(new Set(uniques.map(x => x.location))).map(type => 
               <option key={type}>{type}</option>
             )}
+          </Form.Control>
+          </Col>
+          <Col>
+            <Form.Label>Datum</Form.Label>
+            <DatePickerInput
+                        displayFormat='YYYY-MM-DD'
+                        returnFormat='YYYY-MM-DD'
+                        defaultValue={new Date()}
+                        onChange={e => {setSearch(search, search.date = e);filter();}}
+                        iconClassName='calendar icon'
+                        showOnInputClick
+            />
+            <Button size="sm" onClick={() => {setSearch(search, search.date = null); filter()}}>Återställ datum</Button>
+          </Col>
+          <Col>
+          <Form.Label>Sortera efter</Form.Label>
+          <Form.Control as="select" onChange={e => {setSearch(search, search.orderBy = e.target.value); filter();}}>
+            <option value={null}>Alla</option>
+            <option value="location">Plats</option>
+            <option value="activity_start">Datum</option>
+            <option value="price">Pris</option>
+            <option value="type">Aktivitet</option>
           </Form.Control>
           </Col>
           </Row>

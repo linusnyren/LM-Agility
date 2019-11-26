@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -76,7 +78,14 @@ public class ActivityController {
             if (search.getLocation() != null){
                 sb.append(" and location = \'" +search.getLocation() +"\'");
             }
+            if(search.getDate() != null){
+                sb.append(" and date_trunc('day', activity_start) = \'" +search.getDate().toString().substring(0, 10) +"\'");
+            }
 
+            if(search.getOrderBy() != null){
+                sb.append(" order by " +search.getOrderBy());
+            }
+        System.out.println(sb.toString());
             return entityManager.createNativeQuery(sb.toString(), Activity.class).getResultList();
 
     }

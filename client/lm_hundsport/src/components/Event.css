@@ -1,0 +1,28 @@
+.arrowDown{
+    animation: pulsate 2s infinite;
+}
+.arrowDown:hover{
+    opacity: 100%;
+    animation: no;
+}
+
+@keyframes pulsate{
+    0%{opacity: 20%;}
+    50%{opacity:100%}
+    100%{opacity: 20%;}
+}
+.mainCard{
+    border-radius: .5rem !important;
+    margin: 2rem;
+    width: 16rem;
+    background-color: #00c4ffd6 !important;
+    animation: bounce 1s;
+}
+.mainCard:hover{
+    animation: grow .7s;
+}
+
+@keyframes grow{
+    0%{width: 16rem; background-color: #00c4ffd6 !important;}
+    100%{width: 18rem; height: 150%; background-color: #f700ff !important;}
+}

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Card, Modal, Button, Accordion, Form } from 'react-bootstrap'
+import { Card, Modal, Button, Accordion, Form, Image } from 'react-bootstrap'
 import Moment from 'react-moment';
 import axios from 'axios';
-
+import arrowDown from './resources/arrow_down.svg'
+import './Event.css'
 export default function EventItem(props) {
     const [show, setShow] = useState(false);
     const [phonenmr, setPhonenmr] = useState();
@@ -19,7 +20,7 @@ export default function EventItem(props) {
     let activity = props.data;
     return (
         <Accordion>
-            <Card className="text-white" bg="primary" style={{ borderRadius: "1rem", margin: '2rem', width: "16rem" }}>
+            <Card className="mainCard">
                 <Accordion.Toggle as={Card.Header} eventKey="0">
                     <Card.Header>{activity.type}</Card.Header>
                     <br></br>
@@ -35,7 +36,7 @@ export default function EventItem(props) {
                     </h6>
                     <h6>Plats: {activity.location}</h6>
                     <h6>Nivå: {activity.level}</h6>
-
+                    <Image className="arrowDown"  src={arrowDown} rounded />
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>

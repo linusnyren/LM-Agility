@@ -23,7 +23,7 @@ public class Activity implements Serializable {
     private LocalDateTime activityStart, activityEnd;
     private String timeStart, timeEnd;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List <Student> studentlist;
 
     public Activity(){};
