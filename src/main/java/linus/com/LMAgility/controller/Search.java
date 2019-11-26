@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Search {
-    private String activity;
+    private String activity, location;
     private int price;
 }

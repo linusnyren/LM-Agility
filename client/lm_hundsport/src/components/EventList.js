@@ -8,12 +8,14 @@ export default function EventList() {
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState({
     activity: null,
-    price: 0
+    price: 0,
+    location: null
   })
   const [uniques, setUniques] = useState([])
   const filter = () => {
     if(search.price === "Alla") setSearch(search, search.price = 0); 
     if(search.activity === "Alla") setSearch(search, search.activity = null)
+    if(search.location === "Alla") setSearch(search, search.location = null)
     axios.post("http://localhost:8080/search", search)
       .then(res => setActivities(res.data))
   }
@@ -39,13 +41,17 @@ export default function EventList() {
     return (
       <Container>
         <Form.Group controlId="exampleForm.ControlSelect1">
+          <Row>
+            <Col style={{width:'8rem'}}> 
           <Form.Label>Aktivitets typ</Form.Label>
-          <Form.Control as="select" onChange={e => {setSearch(search, search.activity = e.target.value); filter();}}>
+          <Form.Control as="select" onChange={e => {setSearch(search, search.activity = e.target.value); filter();}} >
             <option key={"Alla"}>Alla</option>
             {Array.from(new Set(uniques.map(x => x.type))).map(type => 
               <option key={type}>{type}</option>
             )}
           </Form.Control>
+          </Col>
+          <Col>
           <Form.Label>Pris</Form.Label>
           <Form.Control as="select" onChange={e => {setSearch(search, search.price = e.target.value); filter();}}>
             <option key={null} value={null}>Alla</option>
@@ -53,6 +59,17 @@ export default function EventList() {
               <option key={type}>{type}</option>
             )}
           </Form.Control>
+          </Col>
+          <Col>
+          <Form.Label>Plats</Form.Label>
+          <Form.Control as="select" onChange={e => {setSearch(search, search.location = e.target.value); filter();}}>
+            <option key={null} value={null}>Alla</option>
+            {Array.from(new Set(uniques.map(x => x.location))).map(type => 
+              <option key={type}>{type}</option>
+            )}
+          </Form.Control>
+          </Col>
+          </Row>
         </Form.Group>
         <Row>
           {activities.map(event =>

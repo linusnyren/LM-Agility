@@ -73,6 +73,9 @@ public class ActivityController {
             if (search.getPrice() != 0) {
                 sb.append(" and price = " + search.getPrice());
             }
+            if (search.getLocation() != null){
+                sb.append(" and location = \'" +search.getLocation() +"\'");
+            }
 
             return entityManager.createNativeQuery(sb.toString(), Activity.class).getResultList();
 
