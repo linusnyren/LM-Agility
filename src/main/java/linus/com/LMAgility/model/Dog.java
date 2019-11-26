@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="Dog")
 public class Dog implements Serializable {
 
     @Id
