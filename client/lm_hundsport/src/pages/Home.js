@@ -3,6 +3,7 @@ import { Carousel, Card } from 'react-bootstrap'
 import bild1 from './images/bild1.jpg'
 import bild2 from './images/bild2.jpg'
 import bild3 from './images/bild3.jpg'
+import FacebookPage from './FacebookPage'
 export default function Home() {
     return (
         <span>
@@ -39,9 +40,11 @@ export default function Home() {
                             Jag kommer till att börja med erbjuda kurser och privatträning inom agility.<br></br>
                             Kurser annonseras på denna sida och då kommer information kring nivå, datum och pris att presenteras.<br></br>
                             Önskas privatträning går det alldeles utmärkt! Tillgängliga tider för privatträning hittar ni i albumet "privatträning".<br></br>
+                            <FacebookPage/>
                         </Card.Text>
                     </Card.Body>
                 </Card>
+                
             </div>
         </span>
     )
