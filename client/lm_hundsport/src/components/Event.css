@@ -20,9 +20,13 @@
 }
 .mainCard:hover{
     animation: grow .7s;
+    border-color: black;
+    border-width: .1rem;
 }
 
 @keyframes grow{
-    0%{width: 16rem; background-color: #00c4ffd6 !important;}
-    100%{width: 18rem; height: 150%; background-color: #f700ff !important;}
+    0%{transform: rotate(0deg);}
+    30%{transform: rotate(10deg)}
+    70%{transform: rotate(-5deg)}
+    100%{transform: rotate(0deg)}
 }

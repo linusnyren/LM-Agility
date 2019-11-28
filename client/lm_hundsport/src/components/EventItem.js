@@ -42,7 +42,7 @@ export default function EventItem(props) {
                     <Card.Body>
                         <h6>Pris: {activity.price}kr</h6>
                         <h6>Anmälda: {activity.studentlist.length}/{activity.participants}</h6>
-                        <Button variant="success" onClick={handleShow}>Anmälan</Button>
+                        <Button variant="outline-success" onClick={handleShow}>Anmälan</Button>
                         <Modal centered show={show} onHide={handleClose} style={{ textAlign: 'center' }}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Anmälan</Modal.Title>

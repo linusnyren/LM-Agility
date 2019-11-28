@@ -81,7 +81,6 @@ public class ActivityController {
             if(search.getDate() != null){
                 sb.append(" and date_trunc('day', activity_start) = \'" +search.getDate().toString().substring(0, 10) +"\'");
             }
-
             if(search.getOrderBy() != null){
                 sb.append(" order by " +search.getOrderBy());
             }

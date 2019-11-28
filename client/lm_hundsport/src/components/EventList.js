@@ -9,7 +9,9 @@ import 'rc-datepicker/lib/style.css';
 
 export default function EventList() {
   const [activities, setActivities] = useState([])
+
   const [loading, setLoading] = useState(true)
+  
   const [search, setSearch] = useState({
     activity: null,
     price: 0,
