@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Button, Jumbotron, Col } from 'react-bootstrap'
+import { Form, Button, Jumbotron, Col} from 'react-bootstrap'
 import { DatePickerInput } from 'rc-datepicker'
 import 'moment/locale/sv.js';
 import 'rc-datepicker/lib/style.css';
@@ -16,6 +16,7 @@ export default function AddEvent() {
         timeStart: null,
         timeEnd: null,
         participants: null,
+        tutor: null,
         studentlist: []
     })
     const[pw, setPw]= useState()
@@ -33,36 +34,40 @@ export default function AddEvent() {
                     <h1>Lägg till Aktivitet</h1>
                     <h3>Detta är enbart till för Linn</h3>
                     <Form.Row>
-                    <Form.Group as={Col} controlId="type">
-                        <Form.Label>Aktivitets typ</Form.Label>
-                        <Form.Control type="text" placeholder="Agility t.ex" onChange={e => setEvent(event, event.type = e.target.value)} />
-                    </Form.Group>
-                    <Form.Group as={Col} controlId="level">
-                        <Form.Label>Nivå</Form.Label>
-                        <Form.Control type="text" placeholder="Nybörjare, medel t.ex" onChange={e => setEvent(event, event.level = e.target.value)} />
-                    </Form.Group>
-                    <Form.Group as={Col} controlId="location">
-                        <Form.Label>Plats</Form.Label>
-                        <Form.Control type="text" placeholder="Greggereds Kapell t.ex" onChange={e => setEvent(event, event.location = e.target.value)} />
-                    </Form.Group>
-                    <Form.Group as={Col} controlId="price">
-                        <Form.Label>Pris</Form.Label>
-                        <Form.Control type="text" placeholder="500 t.ex" onChange={e => setEvent(event, event.price = e.target.value)} />
-                    </Form.Group>
-                    </Form.Row>
-                    <Form.Row>
-                    <Form.Group controlId="participants">
-                        <Form.Label>Max antal deltagare</Form.Label>
-                        <Form.Control type="text" placeholder="10 t.ex" onChange={e => setEvent(event, event.participants = e.target.value)} />
-                    </Form.Group>
-                    <Form.Group controlId="text">
-                        <Form.Label>Starttid</Form.Label>
-                        <Form.Control type="text" placeholder="18:30" onChange={e => setEvent(event, event.timeStart = e.target.value)} />
-                    </Form.Group>
-                    <Form.Group controlId="text">
-                        <Form.Label>Sluttid</Form.Label>
-                        <Form.Control type="text" placeholder="18:30" onChange={e => setEvent(event, event.timeEnd = e.target.value)} />
-                    </Form.Group>
+                            <Form.Group as={Col} controlId="type">
+                                <Form.Label>Aktivitets typ</Form.Label>
+                                <Form.Control type="text" placeholder="Agility t.ex" onChange={e => setEvent(event, event.type = e.target.value)} />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="level">
+                                <Form.Label>Nivå</Form.Label>
+                                <Form.Control type="text" placeholder="Nybörjare, medel t.ex" onChange={e => setEvent(event, event.level = e.target.value)} />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="location">
+                                <Form.Label>Plats</Form.Label>
+                                <Form.Control type="text" placeholder="Greggereds Kapell t.ex" onChange={e => setEvent(event, event.location = e.target.value)} />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="price">
+                                <Form.Label>Pris</Form.Label>
+                                <Form.Control type="text" placeholder="500 t.ex" onChange={e => setEvent(event, event.price = e.target.value)} />
+                            </Form.Group>
+                            </Form.Row>
+                            <Form.Row>
+                            <Form.Group as={Col} controlId="instructor">
+                                <Form.Label>Instruktör</Form.Label>
+                                <Form.Control type="text" placeholder="Linn Magnusson" onChange={e => setEvent(event, event.tutor = e.target.value)} />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="participants">
+                                <Form.Label>Max antal deltagare</Form.Label>
+                                <Form.Control type="text" placeholder="10 t.ex" onChange={e => setEvent(event, event.participants = e.target.value)} />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="text">
+                                <Form.Label>Starttid</Form.Label>
+                                <Form.Control type="text" placeholder="18:30" onChange={e => setEvent(event, event.timeStart = e.target.value)} />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="text">
+                                <Form.Label>Sluttid</Form.Label>
+                                <Form.Control type="text" placeholder="18:30" onChange={e => setEvent(event, event.timeEnd = e.target.value)} />
+                            </Form.Group>
                     </Form.Row>
                     <Form.Label>Datum</Form.Label>
                     <DatePickerInput

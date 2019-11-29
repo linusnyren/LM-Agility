@@ -12,6 +12,7 @@ import Contact from './pages/Contact'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import AddEvent from './pages/AddEvent'
+import About from './pages/About'
 export default function AppRouter() {
   return (
     <div>
@@ -24,6 +25,7 @@ export default function AppRouter() {
               <Link className="navBarItem" to="/"> Hem             </Link>
               <Link className="navBarItem" to="/events">  Aktiviter       </Link>
               <Link className="navBarItem" to="/contact"> Kontakta mig    </Link>
+              <Link className="navBarItem" to="/about"> Om Linn    </Link>
             </Nav>
             <Navbar.Text>
               <Link to="/login">Login</Link>
@@ -46,6 +48,9 @@ export default function AppRouter() {
           </Route>
           <Route path="/addevent" component={AddEvent}>
             <AddEvent />
+          </Route>
+          <Route path="/about" component={About}>
+            <About />
           </Route>
           <Route path="/" component={Home}>
             <Home />

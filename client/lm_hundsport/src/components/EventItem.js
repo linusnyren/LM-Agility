@@ -4,20 +4,41 @@ import Moment from 'react-moment';
 import axios from 'axios';
 import arrowDown from './resources/arrow_down.svg'
 import './Event.css'
+import AddToCalendar from 'react-add-to-calendar';
+import 'react-add-to-calendar/dist/react-add-to-calendar.css'
+import * as moment from 'moment'
+
 export default function EventItem(props) {
     const [show, setShow] = useState(false);
     const [phonenmr, setPhonenmr] = useState();
     const [status, setStatus] = useState();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    let activity = props.data;
     const signup = () => {
         let url = "http://localhost:8080/studentToActivity/" + props.data.id + "/" + phonenmr;
         console.log(url)
         axios.post(url)
             .then(res => res.status === 201 ? setStatus("Tack för anmälan!") : setStatus("Något gick fel, har ni registrerat er?"))
     }
-    let activity = props.data;
+
+    const calenderEvent=()=>{
+        let event={
+            title: activity.type,
+            description: 'Träningstillfälle på LM-Hundsport',
+            location: activity.location,
+            startTime: subtracthour(activity.activityStart),
+            endTime: subtracthour(activity.activityEnd)
+        }
+        return event;
+    }
+    const subtracthour=(incdate) =>{
+        var time = moment.duration("00:01:00")
+        var date = moment(incdate)
+        date.subtract(time)
+        return date;
+    }
+    
     return (
         <Accordion>
             <Card className="mainCard">
@@ -80,8 +101,10 @@ export default function EventItem(props) {
                                 <Button block variant="outline-danger" onClick={handleClose}>Nej</Button><br></br>
                                 <Button block variant="outline-success" onClick={() => signup()}> Ja</Button>
                             </Modal.Footer>
+                            {status ? <div style={{padding: "10px"}}><AddToCalendar event={calenderEvent()}/></div> : ""}
                             <h1 style={{ textAlign: 'center', fontSize: 20 }}> {status ? status : ""}</h1>
                             {status ? <Button block variant="outline-success" onClick={handleClose}>Stäng</Button> : ""}
+                            
                         </Modal>
                     </Card.Body>
                 </Accordion.Collapse>

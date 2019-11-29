@@ -32,8 +32,8 @@ export default function Home() {
                     </Carousel.Item>
                 </Carousel>
             </div>
-            <div id="curtain" style={{ zIndex: '2', position: 'relative', marginTop: '15%' }}>
-                <Card border='primary' style={{ width: '50%', margin: 'auto', postiton: 'fixed' }}>
+            <div id="curtain" style={{ zIndex: '2', position: 'relative',marginTop:'10px', height: '25rem' }}>
+                <Card border='primary' style={{ width: '60%', margin: 'auto', postiton: 'fixed' }}>
                     <Card.Body>
                         <Card.Title>Välkommen till LM-Hundsport</Card.Title>
                         <Card.Text>

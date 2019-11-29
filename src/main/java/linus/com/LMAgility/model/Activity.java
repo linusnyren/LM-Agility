@@ -22,12 +22,13 @@ public class Activity implements Serializable {
     private int participants;
     private LocalDateTime activityStart, activityEnd;
     private String timeStart, timeEnd;
+    private String tutor;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List <Student> studentlist;
 
     public Activity(){};
-    public Activity(String type, String level, String location, int price, int participants, LocalDateTime activityStart, LocalDateTime activityEnd, String timeStart, String timeEnd, List<Student> studentlist) {
+    public Activity(String type, String level, String location, int price, int participants, LocalDateTime activityStart, LocalDateTime activityEnd, String timeStart, String timeEnd, List<Student> studentlist, String tutor) {
         this.type = type;
         this.level = level;
         this.location = location;
@@ -36,6 +37,7 @@ public class Activity implements Serializable {
         this.activityStart = parseTime(activityStart, timeStart);
         this.activityEnd = parseTime(activityEnd, timeEnd);
         this.studentlist = studentlist;
+        this.tutor= tutor;
     }
 
     private LocalDateTime parseTime(LocalDateTime activity, String time) {

@@ -17,10 +17,12 @@ export default function EventList() {
     price: 0,
     location: null,
     date: null,
-    orderBy:null
+    orderBy:null,
+    tutor: null
   })
   const [uniques, setUniques] = useState([])
   const filter = () => {
+    if(search.tutor === "Alla")setSearch(search, search.tutor = null)
     if(search.price === "Alla") setSearch(search, search.price = 0); 
     if(search.activity === "Alla") setSearch(search, search.activity = null)
     if(search.location === "Alla") setSearch(search, search.location = null)
@@ -74,6 +76,15 @@ export default function EventList() {
           <Form.Control as="select" onChange={e => {setSearch(search, search.location = e.target.value); filter();}}>
             <option key={null} value={null}>Alla</option>
             {Array.from(new Set(uniques.map(x => x.location))).map(type => 
+              <option key={type}>{type}</option>
+            )}
+          </Form.Control>
+          </Col>
+          <Col>
+          <Form.Label>Instruktör</Form.Label>
+          <Form.Control as="select" onChange={e => {setSearch(search, search.tutor = e.target.value); filter();}}>
+            <option key={null} value={null}>Alla</option>
+            {Array.from(new Set(uniques.map(x => x.tutor))).map(type => 
               <option key={type}>{type}</option>
             )}
           </Form.Control>

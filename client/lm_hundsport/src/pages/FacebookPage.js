@@ -5,7 +5,7 @@ export default function FacebookPage(){
 
     return(
         <FacebookProvider appId="758354554592341">
-        <Page href="https://www.facebook.com/LMHundsport/" tabs="timeline" style={{width: '30rem'}}/>
+        <Page href="https://www.facebook.com/LMHundsport/" tabs="timeline" style={{width: '30rem', height:"20rem"}}/>
       </FacebookProvider>    
     );
 }

@@ -34,8 +34,19 @@ public class ActivityController {
     @PostMapping("/activity/{pw}")
     public ResponseEntity<Activity> addActivity(@RequestBody Activity activity, @PathVariable String pw){
         if(pw.contains("Emmagosen")) {
-            Activity a = new Activity(activity.getType(), activity.getLevel(), activity.getLocation(), activity.getPrice(), activity.getParticipants(), activity.getActivityStart(), activity.getActivityEnd(), activity.getTimeStart(), activity.getTimeEnd(), activity.getStudentlist());
+            Activity a = new Activity(activity.getType(),
+                    activity.getLevel(),
+                    activity.getLocation(),
+                    activity.getPrice(),
+                    activity.getParticipants(),
+                    activity.getActivityStart(),
+                    activity.getActivityEnd(),
+                    activity.getTimeStart(),
+                    activity.getTimeEnd(),
+                    activity.getStudentlist(),
+                    activity.getTutor());
             activityRepo.save(a);
+            System.out.println(a.getTutor());
             return new ResponseEntity<>(a, HttpStatus.CREATED);
         }
         else{
@@ -81,9 +92,13 @@ public class ActivityController {
             if(search.getDate() != null){
                 sb.append(" and date_trunc('day', activity_start) = \'" +search.getDate().toString().substring(0, 10) +"\'");
             }
+            if(search.getTutor() != null){
+                sb.append(" and tutor = \'"+search.getTutor()+"\'");
+            }
             if(search.getOrderBy() != null){
                 sb.append(" order by " +search.getOrderBy());
             }
+
         System.out.println(sb.toString());
             return entityManager.createNativeQuery(sb.toString(), Activity.class).getResultList();
 
